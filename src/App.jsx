@@ -5,7 +5,7 @@ import "./App.css";
 
 function App() {
   const [randomWords, setRandomWords] = useState([]);
-  const [countdownSecond, setCountdownSecond] = useState(10000);
+  const [countdownSecond, setCountdownSecond] = useState(60000);
   const [isCounting, setIsCounting] = useState(false);
   const [resetWords, setResetWords] = useState(false);
   const [inputValue, setInputValue] = useState("");
@@ -29,7 +29,7 @@ function App() {
   };
 
   const handleResetCountDown = () => {
-    setCountdownSecond(10000);
+    setCountdownSecond(60000);
     setIsCounting(false);
     setCountdownStarted(false);
     setResetWords((prev) => !prev);
@@ -62,27 +62,32 @@ function App() {
 
     if (value.trim() === randomWords[currentWordIndex]) {
       setCorrectWordList((prev) => [...prev, randomWords[currentWordIndex]]);
-      console.log(correctWordList);
-    } else {
-      setInCorrectWordList((e) => [...e, value]);
     }
+    // else {
+    //   setInCorrectWordList((e) => [...e, value]);
+    // }
   };
   // console.log("so tu sai :  " + incorrectWordList);
-  console.log("SO tu dung: " + correctWordList.length);
+  // console.log("SO tu dung: " + correctWordList.length);
 
   const handleKeyDown = (e) => {
     if (e.key === " " && e.target.value.trim() !== "") {
       e.preventDefault();
       setCurrentWordIndex((prevIndex) => prevIndex + 1);
       setInputValue("");
+      const currentInput = e.target.value;
+      if (currentInput !== randomWords[currentWordIndex]) {
+        console.log(currentInput);
+        setInCorrectWordList((e) => [...e, currentInput]);
+      }
     } else if (e.key === " " && e.target.value.trim() === "") {
       e.preventDefault();
     }
   };
-
+  console.log(incorrectWordList);
   const handleCalculateWPM = () => {
     const WPM = correctWordList.length / 1;
-    console.log(WPM);
+    // console.log(WPM);
     return Math.round(WPM);
   };
 
