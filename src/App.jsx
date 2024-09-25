@@ -77,19 +77,21 @@ function App() {
       setInputValue("");
       const currentInput = e.target.value;
       if (currentInput !== randomWords[currentWordIndex]) {
-        console.log(currentInput);
+        // console.log(currentInput);
         setInCorrectWordList((e) => [...e, currentInput]);
       }
     } else if (e.key === " " && e.target.value.trim() === "") {
       e.preventDefault();
     }
   };
-  console.log(incorrectWordList);
+
   const handleCalculateWPM = () => {
     const WPM = correctWordList.length / 1;
     // console.log(WPM);
     return Math.round(WPM);
   };
+
+  console.log(currentWordIndex);
 
   useEffect(() => {
     setRandomWords(generate(381));
@@ -98,28 +100,33 @@ function App() {
   return (
     <div className="fast-finger">
       <div className="sample">
-        {randomWords.map((word, index) => {
-          const wordStyle =
-            index < currentWordIndex
-              ? correctWordList.includes(word)
-                ? { color: "green" }
-                : { color: "red" }
-              : {};
+        <div
+          className="random"
+          style={{ top: `-${Math.floor(currentWordIndex / 12) * 45}px` }}
+        >
+          {randomWords.map((word, index) => {
+            const wordStyle =
+              index < currentWordIndex
+                ? correctWordList.includes(word)
+                  ? { color: "green" }
+                  : { color: "red" }
+                : {};
 
-          return (
-            <span
-              className="word"
-              key={index}
-              style={{
-                ...wordStyle,
-                backgroundColor:
-                  index === currentWordIndex ? "rgb(212, 203, 203)" : "",
-              }}
-            >
-              {word}
-            </span>
-          );
-        })}
+            return (
+              <span
+                className="word"
+                key={index}
+                style={{
+                  ...wordStyle,
+                  backgroundColor:
+                    index === currentWordIndex ? "rgb(212, 203, 203)" : "",
+                }}
+              >
+                {word}
+              </span>
+            );
+          })}
+        </div>
       </div>
       <div className="typing">
         <div className="input">
@@ -157,8 +164,8 @@ function App() {
         {showResult ? (
           <>
             <h1>{WPM !== null ? WPM : "0"} WPM</h1>
-            <h3>Correct words: {WPM !== null ? correctWords : ""}</h3>
-            <h3>Wrong words: {WPM !== null ? wrongWords : ""}</h3>
+            <h4>Correct words: {WPM !== null ? correctWords : ""}</h4>
+            <h4>Wrong words: {WPM !== null ? wrongWords : ""}</h4>
           </>
         ) : (
           ""
