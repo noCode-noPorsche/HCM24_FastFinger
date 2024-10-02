@@ -67,8 +67,9 @@ function App() {
     //   setInCorrectWordList((e) => [...e, value]);
     // }
   };
-  // console.log("so tu sai :  " + incorrectWordList);
-  // console.log("SO tu dung: " + correctWordList.length);
+  
+  console.log("so tu sai :  s" + incorrectWordList);
+  console.log("SO tu dung: " + correctWordList.length);
 
   const handleKeyDown = (e) => {
     if (e.key === " " && e.target.value.trim() !== "") {
